@@ -1,7 +1,6 @@
 function getRandomIntInclusive(min, max) {
   if (min < 0 || max < min){
-    console.log('Введены некорректные значения диапазона');
-    return;
+    return('Введены некорректные значения диапазона');
   }
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -9,7 +8,10 @@ function getRandomIntInclusive(min, max) {
 }
 /*
     Взято с сайта MDN: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random#parameters
-  */
+*/
 function isLessThanMax(string, maxLength){
-  return string.Length < maxLength;
+  return string.length < maxLength;
 }
+
+getRandomIntInclusive(1,10);
+isLessThanMax('Hello,world', 140);
