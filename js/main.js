@@ -48,7 +48,7 @@ const comment = {
 const photoDesc = {
   id: getphotoId(),
   url: `photos/${this.id}.jpg`,
-  description: 'Летний пейзаж реки Дон',
+  description: 'Летний пейзаж реки Волга',
   likes: getRandomIntInclusive(15, 200),
   comments: [comment, comment]
 };
