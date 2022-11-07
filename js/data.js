@@ -12,14 +12,27 @@ const NAMES = [
   'Дарья'
 ];
 
+const DESCRIPTIONS = [
+  'Пейзаж реки Волга',
+  'Концерт AC\\DC',
+  'Пикник',
+  'Очередь в магазине',
+  'Проблемный ребенок'
+];
+
 let photoIdCounter = 0;
-function getphotoId() {
+function getPhotoId() {
   return photoIdCounter++;
 }
 
 let userIdCounter = 0;
 function getUserId() {
   return userIdCounter++;
+}
+
+let urlIdCounter = 0;
+function getUrlId() {
+  return urlIdCounter++;
 }
 
 const comment = {
@@ -30,10 +43,16 @@ const comment = {
 };
 
 // eslint-disable-next-line no-unused-vars
-const photoDesc = {
-  id: getphotoId(),
-  url: `photos/${this.id}.jpg`,
-  description: 'Летний пейзаж реки Волга',
-  likes: getRandomIntInclusive(15, 200),
-  comments: [comment, comment]
-};
+const photos = [];
+for (let i = 0; i < 25; i++) {
+  const photoDesc = {
+    id: getPhotoId(),
+    url: `photos/${getUrlId}.jpg`,
+    description: DESCRIPTIONS[getRandomIntInclusive(0, 5)],
+    likes: getRandomIntInclusive(15, 200),
+    comments: [comment, comment]
+  };
+  photos.push(photoDesc);
+}
+
+export {photos};
