@@ -1,4 +1,5 @@
-import {photos} from './data.js';
+import { allData } from './data.js';
+import { showBigPictures } from './bigPicture.js';
 
 // Взято с сайта MDN: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random#parameters
 // eslint-disable-next-line no-unused-vars
@@ -31,11 +32,16 @@ const renderPhoto = (photo) => {
   likes.textContent = photo.likes;
   const comment = item.querySelector('.picture__comments');
   comment.textContent = photo.comment.length;
+
+  item.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    showBigPictures(photo);
+  });
   return item;
 };
 
 const renderPhotos = () => {
-  photos.forEach((photo) => {
+  allData.forEach((photo) => {
     newFragment.appendChild(renderPhoto(photo));
   });
   picture.appendChild(newFragment);

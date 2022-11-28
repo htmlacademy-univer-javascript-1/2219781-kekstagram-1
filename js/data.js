@@ -1,58 +1,60 @@
-import { getRandomIntInclusive } from './util';
+import { getRandomIntInclusive } from './util.js';
 
-const MESSAGES = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.'
-];
+const amount = 25;
 
 const NAMES = [
   'Артём',
-  'Игорь',
+  'Николай',
+  'Кристина',
+  'Макс',
+  'Шеврон',
+  'Анастасия',
+  'Батырхан',
+  'Егор',
   'Арина',
-  'Дарья'
 ];
 
-const DESCRIPTIONS = [
-  'Пейзаж реки Волга',
-  'Концерт AC\\DC',
-  'Пикник',
-  'Очередь в магазине',
-  'Проблемный ребенок'
+const MESSAGES = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Хуже фото никогда не видела',
+  'Мда, у меня бы получилась фотка получше',
+  'Шикарно! Это просто великолепно!',
+  'Почему лица такие противные?'
 ];
 
-let photoIdCounter = 0;
-function getPhotoId() {
-  return photoIdCounter++;
+const data = [];
+
+
+function getAllData() {
+
+  for(let i = 0; i < amount; i++) {
+    data[i] = {
+      id: i + 1,
+      url: `photos/${i + 1}.jpg`,
+      description: `Описание ${i + 1}`,
+      likes: getRandomIntInclusive(15, 200),
+      comments: getComments(getRandomIntInclusive(1, 20))
+    };
+  }
+  return data;
 }
 
-let userIdCounter = 0;
-function getUserId() {
-  return userIdCounter++;
+function getComments() {
+  const commentsData = [];
+
+  for(let i = 0; i < amount; i++) {
+    commentsData[i] = {
+      id: i + 1,
+      avatar: `img/avatar-${getRandomIntInclusive(1, 6)}.svg`,
+      message: MESSAGES[getRandomIntInclusive(0, MESSAGES.length - 1)],
+      name: NAMES[getRandomIntInclusive(0, NAMES.length - 1)],
+    };
+  }
+
+  return commentsData;
 }
 
-let urlIdCounter = 0;
-function getUrlId() {
-  return urlIdCounter++;
-}
-
-const comment = {
-  id: getUserId(),
-  avatar: `img/avatar-${ getRandomIntInclusive(1, 6) }.svg`,
-  message: MESSAGES[getRandomIntInclusive(0, MESSAGES.length-1)],
-  name: NAMES[getRandomIntInclusive(0, NAMES.length-1)]
-};
-
-// eslint-disable-next-line no-unused-vars
-const photos = [];
-for (let i = 0; i < 25; i++) {
-  const photoDesc = {
-    id: getPhotoId(),
-    url: `photos/${getUrlId}.jpg`,
-    description: DESCRIPTIONS[getRandomIntInclusive(0, 5)],
-    likes: getRandomIntInclusive(15, 200),
-    comments: [comment, comment]
-  };
-  photos.push(photoDesc);
-}
-
-export {photos};
+getAllData();
+export { data as allData };
+export { NAMES, MESSAGES, getAllData, getComments };

@@ -37,11 +37,11 @@ const hashtagsHandler = (value) => {
       error: 'Хэш-теги разделяются пробелами',
     },
     {
-      check: input.some((item) => item[0] !=='#'),
+      check: input.some((item) => item[0] !== '#'),
       error: 'Хэш-тек должен начинается с #',
     },
     {
-      check: input.some((item, num, arr) => arr.includes(item, num +1)),
+      check: input.some((item, num, arr) => arr.includes(item, num + 1)),
       error: 'Хэш-тег не должен повторяться',
     },
     {
