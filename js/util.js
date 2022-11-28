@@ -16,6 +16,8 @@ function isLessThanMax(string, maxLength) {
   return string.length <= maxLength;
 }
 
+const isEscapeBut = (evt) => evt.key === 'Escape';
+
 const picture = document.querySelector('.pictures');
 const template = document.querySelector('#picture').content;
 const templatePicture = template.querySelector('.picture');
@@ -42,3 +44,4 @@ renderPhotos();
 
 export {getRandomIntInclusive};
 export {isLessThanMax};
+export {isEscapeBut};
