@@ -1,21 +1,24 @@
-import { isEscapeBut } from './util.js';
+import { isEscape } from './util.js';
 
 const COMMENTS_COUNT = 5;
 let currentCount = COMMENTS_COUNT;
-const liArray = [];
+const arrayLi = [];
 
 const popup = document.querySelector('.big-picture');
 const closeButton = document.querySelector('.big-picture__cancel');
 const updateMore = document.querySelector('.comments-loader');
+
 const commentAbout = popup.querySelector('.social__comments');
 const commentCopy = commentAbout.querySelector('li');
+
 const commentsCount = popup.querySelector('.social__comment-count');
 const commentCount = commentsCount.querySelector('.comments-count');
+
 const showCom = commentsCount.querySelector('.showCount');
 showCom.textContent = COMMENTS_COUNT;
 
 const onDocumentEscKeyDown = (evt) => {
-  if (isEscapeBut(evt) && !evt.target.classList.contains('big-picture')) {
+  if (isEscape(evt) && !evt.target.classList.contains('big-picture')) {
     popup.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
     document.removeEventListener('keydown', onDocumentEscKeyDown);
@@ -24,14 +27,14 @@ const onDocumentEscKeyDown = (evt) => {
 
 const onUpdateMoreClick = () => {
 
-  if(currentCount >= liArray.length) {
-    currentCount = liArray.length;
+  if (currentCount >= arrayLi.length) {
+    currentCount = arrayLi.length;
     updateMore.classList.add('hidden');
   }
 
-  const currentComments = liArray.slice(0, currentCount);
+  const currentComments = arrayLi.slice(0, currentCount);
 
-  for(let i = 0; i < currentComments.length; i++) {
+  for (let i = 0; i < currentComments.length; i++) {
     currentComments[i].classList.remove('hidden');
   }
 
@@ -39,10 +42,11 @@ const onUpdateMoreClick = () => {
   currentCount += COMMENTS_COUNT;
 };
 
+
 const addComments = (comments, array) => {
   array.length = 0;
   commentAbout.innerHTML = '';
-  for(let i = 0; i < comments.length; i++) {
+  for (let i = 0; i < comments.length; i++) {
 
     const newElement = commentCopy.cloneNode(true);
 
@@ -54,8 +58,8 @@ const addComments = (comments, array) => {
     commentAbout.appendChild(newElement);
   }
 
-  for(let z = COMMENTS_COUNT; z < liArray.length; z++) {
-    liArray[z].classList.add('hidden');
+  for (let z = COMMENTS_COUNT; z < arrayLi.length; z++) {
+    arrayLi[z].classList.add('hidden');
   }
 
   currentCount += COMMENTS_COUNT;
@@ -65,19 +69,26 @@ const addComments = (comments, array) => {
 
 const showBigPictures = (photo) => {
   document.addEventListener('keydown', onDocumentEscKeyDown);
+
+
   popup.classList.remove('hidden');
+
   const newImg = popup.querySelector('.big-picture__img');
   const img = newImg.querySelector('img');
+
   const newImgSocial = popup.querySelector('.big-picture__social');
   const likes = newImgSocial.querySelector('.likes-count');
+
   const description = popup.querySelector('.social__caption');
+
   img.src = photo.url;
   likes.textContent = photo.likes;
   commentCount.textContent = photo.comments.length;
   description.textContent = photo.description;
-  addComments(photo.comments, liArray);
 
-  if(photo.comments.length <= 5) {
+  addComments(photo.comments, arrayLi);
+
+  if (photo.comments.length <= 5) {
     showCom.textContent = photo.comments.length;
     updateMore.classList.add('hidden');
   } else {
@@ -88,12 +99,13 @@ const showBigPictures = (photo) => {
   document.querySelector('body').classList.add('modal-open');
 };
 
+
 closeButton.addEventListener('click', () => {
   popup.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
   updateMore.classList.add('hidden');
   currentCount = COMMENTS_COUNT;
-  liArray.length = 0;
+  arrayLi.length = 0;
   updateMore.removeEventListener('click', onUpdateMoreClick);
 });
 
