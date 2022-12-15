@@ -1,13 +1,9 @@
-import { imageUpload } from './formUpload.js';
+import { imageUpload } from './upload-form.js';
 
 const START_EFFECT = 'none';
-
 const effects = document.querySelector('.effects__list');
 const slider = document.querySelector('.img-upload__effect-level');
-
-
 let nowEffect = START_EFFECT;
-
 
 noUiSlider.create(slider, {
   range: {
@@ -88,15 +84,16 @@ const takeEffect = (effect) => {
   }
 };
 
-const addEffect = (evt) => {
+const onClickAddEffect = (evt) => {
   if (evt.target.name === 'effect') {
     takeEffect(evt.target.value);
   }
 };
 const restartEffects = () => {
+  document.querySelector('.img-upload__form').reset();
+  imageUpload.classList.remove(`effects__preview--${nowEffect}`);
   slider.classList.add('hidden');
-  effects.removeEventListener('click', addEffect);
-  imageUpload.removeAttribute('class');
+  effects.removeEventListener('click', onClickAddEffect);
   slider.noUiSlider.updateOptions({
     range: {
       min: 0,
@@ -106,11 +103,11 @@ const restartEffects = () => {
     step: 1,
     connect: 'lower',
   });
-  takeEffect('none');
 };
 
 const doEffects = () => {
   imageUpload.style.filter = '';
-  effects.addEventListener('click', addEffect);
+  effects.addEventListener('click', onClickAddEffect);
 };
+
 export { doEffects, restartEffects };
