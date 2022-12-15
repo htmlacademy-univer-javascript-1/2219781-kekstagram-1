@@ -5,3 +5,5 @@ import './data.js';
 import './util.js';
 import './formUpload.js';
 import './hashtags.js';
+import './scaling-photo.js';
+import './effectsOnPhoto.js';

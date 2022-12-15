@@ -1,5 +1,5 @@
 import { allData } from './data.js';
-import { showBigPictures } from './bigPicture.js';
+import { showBigPictures } from './big-picture.js';
 
 // Взято с сайта MDN: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random#parameters
 // eslint-disable-next-line no-unused-vars
@@ -17,7 +17,7 @@ function isLessThanMax(string, maxLength) {
   return string.length <= maxLength;
 }
 
-const isEscapeBut = (evt) => evt.key === 'Escape';
+const isEscapeButton = (evt) => evt.key === 'Escape';
 
 const picture = document.querySelector('.pictures');
 const template = document.querySelector('#picture').content;
@@ -50,4 +50,4 @@ renderPhotos();
 
 export {getRandomIntInclusive};
 export {isLessThanMax};
-export {isEscapeBut};
+export {isEscapeButton as isEscapeBut};
