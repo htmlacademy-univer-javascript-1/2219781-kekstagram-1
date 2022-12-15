@@ -1,7 +1,7 @@
 import { sendRequest } from './server.js';
-import { showAlert } from './render.js';
-import { isEscape } from './render.js';
-import { restartForm } from './formUpload.js';
+import { showAlert } from './utils.js';
+import { isEscape } from './utils.js';
+import { restartForm } from './upload-form.js';
 
 const MAX_SYMBOLS = 20;
 const MAX_HASHTAGS = 5;
@@ -25,9 +25,9 @@ const pristine = new Pristine(form, {
 const hashtags = document.querySelector('.text__hashtags');
 
 let errorMessages = '';
-const error = () => errorMessages;
+const getErrorMessage = () => errorMessages;
 
-const hashtagsHandler = (value) => {
+const hashtagValidateHandler = (value) => {
   errorMessages = '';
   const text = value.toLowerCase().trim();
   if (!text) {
@@ -76,7 +76,7 @@ const hashtagsHandler = (value) => {
 
 };
 
-pristine.addValidator(hashtags, hashtagsHandler, error, 2, false);
+pristine.addValidator(hashtags, hashtagValidateHandler, getErrorMessage, 2, false);
 
 hashtags.addEventListener('input', () => {
   button.disabled = !pristine.validate();
@@ -88,9 +88,12 @@ const removeMessage = () => {
     restartForm();
   }
   if (mes.querySelector('.error')) {
+    document.querySelector('.error').remove();
     document.querySelector('.error_message').remove();
+    document.querySelector('.img-upload__overlay').classList.add('hidden');
+    document.querySelector('body').classList.remove('modal-open');
+    button.disabled = false;
   }
-
 };
 
 const onEscapeMes = (evt) => {
@@ -106,7 +109,7 @@ const onWindowClick = (evt) => {
 
   if (!withinBoundaries) {
     removeMessage();
-    document.removeEventListener('keydown', onWindowClick);
+    document.removeEventListener('click', onWindowClick);
   }
 };
 const doSuccessMessage = () => {

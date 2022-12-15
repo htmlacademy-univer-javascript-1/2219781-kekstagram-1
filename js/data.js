@@ -1,26 +1,26 @@
-import { getRandomIntInclusive } from './render.js';
+import { getRandomIntInclusive } from './utils.js';
 
-const amount = 25;
+const AMOUNT = 25;
 
 const NAMES = [
-  'Аарон',
-  'Аврора',
-  'Лия',
-  'Леонхард',
-  'Конон',
-  'Кэлин',
-  'Ноа',
-  'Таврион',
-  'Ричард',
+  'Артур',
+  'Николай',
+  'Егор',
+  'Артем',
+  'Никон',
+  'Кирилл',
+  'Екатерина',
+  'Лиза',
+  'Мария',
 ];
 
 const MESSAGES = [
-  'Всё отлично!',
+  'Всё круто!',
   'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  'Как то не особо профессионально.',
+  'У меня получилось бы лучше!',
+  'Что вообще происходит?',
+  'Как можно было поймать такой неудачный момент?!'
 ];
 
 const allData = [];
@@ -28,7 +28,7 @@ const allData = [];
 
 function getAllData() {
 
-  for(let index = 0; index < amount; index++) {
+  for (let index = 0; index < AMOUNT; index++) {
     allData[index] = {
       id: index + 1,
       url: `photos/${index + 1}.jpg`,
@@ -43,7 +43,7 @@ function getAllData() {
 function getComments() {
   const commentsData = [];
 
-  for(let index = 0; index < amount; index++) {
+  for (let index = 0; index < AMOUNT; index++) {
     commentsData[index] = {
       id: index + 1,
       avatar: `img/avatar-${getRandomIntInclusive(1, 6)}.svg`,
@@ -56,4 +56,5 @@ function getComments() {
 }
 
 getAllData();
+
 export { allData, NAMES, MESSAGES, getAllData, getComments };

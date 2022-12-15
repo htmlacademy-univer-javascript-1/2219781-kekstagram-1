@@ -37,9 +37,44 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const mixArray = (array) => {
+  for (let one = array.length - 1; one > 0; one--) {
+    const two = getRandomIntInclusive(0, one);
+    [array[one], array[two]] = [array[two], array[one]];
+  }
+  return array;
+};
+
+const debounce = (callback, timeoutDelay = 500) => {
+
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+const throttle = (callback, delayBetweenFrames) => {
+
+  let lastTime = 0;
+
+  return (...rest) => {
+
+    const now = new Date();
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+};
 export {
   getRandomIntInclusive,
   checkMaximumStringLength,
   isEscape,
-  showAlert
+  showAlert,
+  throttle,
+  debounce,
+  mixArray
 };
+
