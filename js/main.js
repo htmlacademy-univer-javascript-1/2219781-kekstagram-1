@@ -1,9 +1,23 @@
-/* eslint-disable no-unused-vars */
-import {isLessThanMax} from './util';
-import {getRandomIntInclusive} from './util';
-import './data.js';
-import './util.js';
 import './formUpload.js';
+import './data.js';
+import './render.js';
+import './bigPicture.js';
 import './hashtags.js';
-import './scaling-photo.js';
+import './scalingPhoto.js';
 import './effectsOnPhoto.js';
+import './server.js';
+import { renderPhotos } from './render.js';
+import { sendRequest } from './server.js';
+import { showAlert } from './render.js';
+
+const onSuccess = (data) => {
+  renderPhotos(data);
+};
+
+const onFail = (error) =>{
+  showAlert(error);
+};
+
+const method = 'GET';
+
+sendRequest(onSuccess, onFail, method);

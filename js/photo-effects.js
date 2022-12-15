@@ -2,12 +2,14 @@ import { imageUpload } from './formUpload.js';
 
 const START_EFFECT = 'none';
 
-const EFFECTS = document.querySelector('.effects__list');
-const SLIDER = document.querySelector('.img-upload__effect-level');
+const effects = document.querySelector('.effects__list');
+const slider = document.querySelector('.img-upload__effect-level');
 
-let curEffect = START_EFFECT;
 
-noUiSlider.create(SLIDER, {
+let nowEffect = START_EFFECT;
+
+
+noUiSlider.create(slider, {
   range: {
     min: 0,
     max: 100,
@@ -17,90 +19,85 @@ noUiSlider.create(SLIDER, {
   connect: 'lower',
 });
 
-SLIDER.setAttribute('disabled', true);
+slider.disabled = true;
 
 
 const reSlider = (effect) => {
   let maxValue = 1;
   let minValue = 0;
-  let step = 0.1;
-  let effectName = '';
+  let stepValue = 0.1;
+  let nameOfEffect = '';
   let type = '';
-  if (effect === 'chrome') {
-    effectName = 'grayscale';
-  }
-  if (effect === 'sepia') {
-    effectName = 'sepia';
-  }
-  if (effect === 'marvin') {
-    maxValue = 100;
-    minValue = 0;
-    step = 1;
-    type = '%';
-    effectName = 'invert';
-  }
-  if (effect === 'phobos') {
-    maxValue = 3;
-    minValue = 0;
-    step = 0.1;
-    type = 'px';
-    effectName = 'blur';
-  }
-  if (effect === 'heat') {
-    maxValue = 3;
-    minValue = 1;
-    step = 0.1;
-    effectName = 'brightness';
+
+  switch (effect) {
+    case 'chrome':
+      nameOfEffect = 'grayscale';
+      break;
+    case 'sepia':
+      nameOfEffect = 'sepia';
+      break;
+    case 'marvin':
+      maxValue = 100;
+      minValue = 0;
+      stepValue = 1;
+      type = '%';
+      nameOfEffect = 'invert';
+      break;
+    case 'phobos':
+      maxValue = 3;
+      minValue = 0;
+      stepValue = 0.1;
+      type = 'px';
+      nameOfEffect = 'blur';
+      break;
+    case 'heat':
+      maxValue = 3;
+      minValue = 1;
+      stepValue = 0.1;
+      nameOfEffect = 'brightness';
+      break;
   }
 
-  SLIDER.noUiSlider.updateOptions({
+
+  slider.noUiSlider.updateOptions({
     range: {
       min: minValue,
       max: maxValue
     },
     start: maxValue,
-    step: step,
-    format: {
-      to: function (value) {
-        if(Number.isInteger(value)) {
-          return value.toFixed(0);
-        }
-        return value.toFixed(1);
-      },
-      from: function (value) {
-        return parseFloat(value);
-      },
-    },
+    step: stepValue,
   });
-  SLIDER.noUiSlider.on('update', () => {
-    imageUpload.style.filter = `${effectName}(${SLIDER.noUiSlider.get()}${type})`;
+  slider.noUiSlider.on('update', () => {
+    imageUpload.style.filter = `${nameOfEffect}(${slider.noUiSlider.get()}${type})`;
   });
 };
 
-const MAKE_EFFECT = (effect) => {
-  imageUpload.classList.remove(`effects__preview--${curEffect}`);
+const takeEffect = (effect) => {
+  imageUpload.classList.remove(`effects__preview--${nowEffect}`);
   imageUpload.classList.add(`effects__preview--${effect}`);
-  curEffect = effect;
 
   if (effect === 'none') {
-    SLIDER.setAttribute('disabled', false);
+    slider.disabled = false;
+    slider.classList.add('hidden');
     imageUpload.style.filter = '';
   } else {
-    SLIDER.removeAttribute('disabled');
+    nowEffect = effect;
+    slider.removeAttribute('disabled');
+    slider.classList.remove('hidden');
     reSlider(effect);
   }
 };
 
-const ADD_EFFECT = (evt) => {
-  const targetEffect = evt.target;
-  if (targetEffect.name === 'effect') {
-    MAKE_EFFECT(targetEffect.value);
+const addEffect = (evt) => {
+  if (evt.target.name === 'effect') {
+    takeEffect(evt.target.value);
   }
 };
-const RESET_EFFECTS = () => {
-  EFFECTS.removeEventListener('click', ADD_EFFECT);
-  imageUpload.classList.remove(`effects__preview--${curEffect}`);
-  SLIDER.noUiSlider.updateOptions({
+const restartEffects = () => {
+  slider.classList.add('hidden');
+  effects.removeEventListener('click', addEffect);
+  imageUpload.removeAttribute('class');
+  slider.noUiSlider.updateOptions({
     range: {
       min: 0,
       max: 100,
@@ -109,11 +106,11 @@ const RESET_EFFECTS = () => {
     step: 1,
     connect: 'lower',
   });
-  SLIDER.setAttribute('disabled', true);
+  takeEffect('none');
 };
 
-const DO_EFFECTS = () => {
+const doEffects = () => {
   imageUpload.style.filter = '';
-  EFFECTS.addEventListener('click', ADD_EFFECT);
+  effects.addEventListener('click', addEffect);
 };
-export { DO_EFFECTS as doEffects, RESET_EFFECTS as restartEffects };
+export { doEffects, restartEffects };
