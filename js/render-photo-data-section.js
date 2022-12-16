@@ -5,12 +5,15 @@ const photoDataSection = document.querySelector('.big-picture');
 const photoDataSectionCloseButton = photoDataSection.querySelector('.big-picture__cancel');
 
 const fullSizePhoto = photoDataSection.querySelector('.big-picture__img img');
+
 const likesCount = photoDataSection.querySelector('.likes-count');
 const commentsCount = photoDataSection.querySelector('.comments-count');
 const countVisibleComments = photoDataSection.querySelector('.featured-comments');
+
 const listSocialComments = photoDataSection.querySelector('.social__comments');
 const socialComment = listSocialComments.querySelector('.social__comment');
 const photoDescription = photoDataSection.querySelector('.social__caption');
+
 const commentLoader = photoDataSection.querySelector('.comments-loader');
 
 const countShownComments = () => listSocialComments.querySelectorAll('.social__comment').length - listSocialComments.querySelectorAll('.social__comment.hidden').length;
@@ -96,4 +99,7 @@ const onThumbnailClick = (evt) => {
 
 containerUsersPicture.addEventListener('click', onThumbnailClick);
 
-export {renderPhotoDataSection, photoDataSection};
+export {
+  renderPhotoDataSection,
+  photoDataSection
+};

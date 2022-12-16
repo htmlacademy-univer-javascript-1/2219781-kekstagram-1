@@ -10,6 +10,6 @@ uploadFile.addEventListener('change', () => {
   if (matches) {
     imgUploadPreviewInner.src = URL.createObjectURL(file);
   } else {
-    showAlert('Кажется, выбрано не фото, держи кота и поробуй ещё раз');
+    showAlert('Ошибка: было выбрано не фото, попробуй ещё раз. А пока что держи кота :)');
   }
 });

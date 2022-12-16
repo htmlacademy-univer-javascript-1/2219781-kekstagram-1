@@ -89,4 +89,9 @@ effectsList.addEventListener('change', (evt) => {
   }
 });
 
-export {scaleControl, imgUploadPreview, imgUploadPreviewInner, resetPhotoEffects};
+export {
+  scaleControl,
+  imgUploadPreview,
+  imgUploadPreviewInner,
+  resetPhotoEffects
+};

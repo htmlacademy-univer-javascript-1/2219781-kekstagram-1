@@ -48,4 +48,8 @@ const EFFECTS = [
   }
 ];
 
-export {BODY, EFFECTS, FILE_TYPES};
+export {
+  BODY,
+  EFFECTS,
+  FILE_TYPES
+};

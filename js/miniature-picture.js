@@ -21,4 +21,7 @@ const renderPublications = (publications) => {
   containerUsersPicture.append(pictureListFragment);
 };
 
-export {containerUsersPicture, renderPublications};
+export {
+  containerUsersPicture,
+  renderPublications
+};

@@ -48,4 +48,7 @@ const getPublications = (data) => {
   setDiscussedClick(debounce(() => renderPublications(newData), 500));
 };
 
-export {imgFilters, getPublications};
+export {
+  imgFilters,
+  getPublications
+};

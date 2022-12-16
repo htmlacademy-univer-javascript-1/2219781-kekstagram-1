@@ -1,5 +1,6 @@
 const showAlert = (massage) => {
   const alertBlock = document.createElement('div');
+
   alertBlock.style.position = 'absolute';
   alertBlock.style.top = '0';
   alertBlock.style.left = '0';
@@ -12,6 +13,7 @@ const showAlert = (massage) => {
   alertBlock.style.textAlign = 'center';
   alertBlock.style.textTransform = 'none';
   alertBlock.innerHTML = massage;
+
   document.body.prepend(alertBlock);
   setTimeout(() => alertBlock.remove(), 5000);
 };
@@ -38,4 +40,8 @@ function debounce(callback, timeoutDelay = 500) {
   };
 }
 
-export {showAlert, createRandomArray, debounce};
+export {
+  showAlert,
+  createRandomArray,
+  debounce
+};

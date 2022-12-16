@@ -52,7 +52,7 @@ pristine.addValidator(textHashtags, (value) => {
     return false;
   }
   return isEveryHashtagsValid;
-}, 'Проверь, стоит ли у хештега хеш «#»');
+}, 'В начале должен стоять #');
 
 const blockSubmitButton = (button, buttonText = 'Отправляем') => {
   button.disabled = true;
